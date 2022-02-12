@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import emlakburada.repository.IlanRepository;
-import emlakburada.service.IlanService;
+import emlakburada.service.AdvertService;
 import emlakburada.service.Singleton;
 
 @SpringBootApplication

@@ -1,31 +1,33 @@
 package emlakburada.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import emlakburada.model.Ilan;
-import emlakburada.service.IlanService;
+import emlakburada.dto.AdvertRequest;
+import emlakburada.dto.response.AdvertResponse;
+import emlakburada.service.AdvertService;
 
 @RestController
 public class IlanController {
 
 	@Autowired
-	private IlanService ilanService;
+	private AdvertService advertService;
 
-	@GetMapping(value = "/ilanlar")
-	public List<String> getAllIlan() {
-		System.out.println("ilanService:" + ilanService.toString());
+	@GetMapping(value = "/adverts")
+	public ResponseEntity<List<AdvertResponse>> getAllAdvert() {
+		return new ResponseEntity<>(advertService.getAllAdverts(), HttpStatus.OK);
+	}
 
-		List<String> baslikList = new ArrayList<>();
-		for (Ilan ilan : ilanService.getAllIlan()) {
-			baslikList.add(ilan.getBaslik());
-		}
-		return baslikList;
-
+	@PostMapping(value = "/adverts")
+	public ResponseEntity<AdvertResponse> createAdvert(@RequestBody AdvertRequest request) {
+		return new ResponseEntity<>(advertService.createAdvert(request), HttpStatus.CREATED);
 	}
 
 }

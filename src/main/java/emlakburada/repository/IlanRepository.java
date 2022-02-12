@@ -3,30 +3,32 @@ package emlakburada.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import emlakburada.model.Gayrimenkul;
-import emlakburada.model.Ilan;
+import emlakburada.model.Advert;
+import emlakburada.model.RealEstate;
 
 @Repository
-@Scope(value = "prototype")
 public class IlanRepository {
-	
-	private String url = "localhost";
-	private String pass= "şifre";
 
-	public List<Ilan> fetchAllIlan() {
-		List<Ilan> ilanListesi = new ArrayList<>();
+	private String url = "localhost";
+	private String pass = "şifre";
+
+	private static List<Advert> ilanListesi = new ArrayList<>();
+
+	static {
 		ilanListesi.add(prepareIlan("Sahibinden Acil Satılık"));
 		ilanListesi.add(prepareIlan("Dosta GİDERRR ACİLLL!!!"));
 		ilanListesi.add(prepareIlan("Metroya Koşarak 5 dk"));
 		ilanListesi.add(prepareIlan("Öğrenciye ve Bekar uygun"));
+	}
+
+	public List<Advert> fetchAllAdverts() {
 		return ilanListesi;
 	}
 
-	private static Ilan prepareIlan(String baslik) {
-		Ilan ilan = new Ilan();
+	private static Advert prepareIlan(String baslik) {
+		Advert ilan = new Advert();
 		ilan.setBaslik(baslik);
 		ilan.setGayrimenkul(makeGayrimenkul());
 
@@ -48,8 +50,14 @@ public class IlanRepository {
 		return resimList;
 	}
 
-	private static Gayrimenkul makeGayrimenkul() {
-		return new Gayrimenkul();
+	private static RealEstate makeGayrimenkul() {
+		return new RealEstate();
+	}
+
+	public Advert saveAdvert(Advert advert) {
+		ilanListesi.add(advert);
+		System.out.println(advert.toString());
+		return advert;
 	}
 
 }

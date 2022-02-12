@@ -17,30 +17,31 @@ public class IlanRepository {
 	private static List<Advert> ilanListesi = new ArrayList<>();
 
 	static {
-		ilanListesi.add(prepareIlan("Sahibinden Acil Satılık"));
-		ilanListesi.add(prepareIlan("Dosta GİDERRR ACİLLL!!!"));
-		ilanListesi.add(prepareIlan("Metroya Koşarak 5 dk"));
-		ilanListesi.add(prepareIlan("Öğrenciye ve Bekar uygun"));
+		ilanListesi.add(prepareIlan(38164780, "Sahibinden Acil Satılık"));
+		ilanListesi.add(prepareIlan(38164781, "Dosta GİDERRR ACİLLL!!!"));
+		ilanListesi.add(prepareIlan(38164782, "Metroya Koşarak 5 dk"));
+		ilanListesi.add(prepareIlan(38164783, "Öğrenciye ve Bekar uygun"));
 	}
 
 	public List<Advert> fetchAllAdverts() {
 		return ilanListesi;
 	}
 
-	private static Advert prepareIlan(String baslik) {
-		Advert ilan = new Advert();
-		ilan.setBaslik(baslik);
-		ilan.setGayrimenkul(makeGayrimenkul());
+	private static Advert prepareIlan(int advertNo, String baslik) {
+		Advert advert = new Advert();
+		advert.setAdvertNo(advertNo);
+		advert.setBaslik(baslik);
+		advert.setGayrimenkul(makeGayrimenkul());
 
 		// kullanici.mesajKutusu.add(new Mesaj("acil dönüş")); // NPE
 
 		// ilan.setKullanici(kullanici);
 
-		ilan.setAktifMi(true);
+		advert.setAktifMi(true);
 
-		ilan.setResimList(makeResimList());
+		advert.setResimList(makeResimList());
 
-		return ilan;
+		return advert;
 	}
 
 	private static String[] makeResimList() {
@@ -58,6 +59,10 @@ public class IlanRepository {
 		ilanListesi.add(advert);
 		System.out.println(advert.toString());
 		return advert;
+	}
+
+	public Advert findAdvertByAdvertId(int advertNo) {
+		return ilanListesi.stream().filter(advert -> advert.getAdvertNo() == advertNo).findAny().orElse(new Advert());
 	}
 
 }

@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class AdvertResponse {
 
+	private int advertNo;
 	private RealEstate gayrimenkul;
 	private String baslik;
 	private User kullanici; // hem bireysel & kurumsal

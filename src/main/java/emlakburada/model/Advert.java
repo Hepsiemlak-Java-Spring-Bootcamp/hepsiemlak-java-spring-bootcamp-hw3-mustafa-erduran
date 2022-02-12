@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Advert {
-
+	
+	private int advertNo;
 	private RealEstate gayrimenkul;
 	private String baslik;
 	private User kullanici; // hem bireysel & kurumsal

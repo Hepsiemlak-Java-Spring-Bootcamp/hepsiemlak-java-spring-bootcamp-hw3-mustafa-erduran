@@ -29,6 +29,8 @@ public class AdvertService {
 
 	@Autowired
 	private KullaniciService kullaniciService;
+	
+	private static int advertNo = 38164784;
 
 	// @Autowired
 //	public IlanService(IlanRepository ilanRepository) {
@@ -57,14 +59,23 @@ public class AdvertService {
 		AdvertResponse response = new AdvertResponse();
 		response.setBaslik(savedAdvert.getBaslik());
 		response.setFiyat(savedAdvert.getFiyat());
+		response.setAdvertNo(savedAdvert.getAdvertNo());
 		return response;
 	}
 
 	private Advert convertToAdvert(AdvertRequest request) {
 		Advert advert = new Advert(new RealEstate(), new User(), new String[5]);
+		advertNo++;
+		
+		advert.setAdvertNo(advertNo);
 		advert.setBaslik(request.getBaslik());
 		advert.setFiyat(request.getFiyat());
 		return advert;
+	}
+
+	public AdvertResponse getAdvertByAdvertId(int advertId) {
+		Advert advert = advertRepository.findAdvertByAdvertId(advertId);
+		return convertToAdvertResponse(advert);
 	}
 
 }

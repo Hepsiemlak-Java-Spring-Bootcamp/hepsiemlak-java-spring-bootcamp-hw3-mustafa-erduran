@@ -1,12 +1,16 @@
 package emlakburada.model;
 
 import emlakburada.model.enums.KonutType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class Gayrimenkul {
+@AllArgsConstructor
+@NoArgsConstructor
+public class RealEstate {
 
-	private Adres adres;
+	private Address adres;
 	private KonutType konutType;
 	private String odaSayisi = "3+1";
 	private int alan = 145;

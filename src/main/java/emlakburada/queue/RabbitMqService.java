@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import emlakburada.config.RabbitMqConfig;
+import emlakburada.service.EmailMessage;
 
 @Service
 public class RabbitMqService implements QueueService {
@@ -16,8 +17,8 @@ public class RabbitMqService implements QueueService {
 	private RabbitMqConfig config;
 
 	@Override
-	public void sendMessage(String email) {
-		rabbitTemplate.convertAndSend(config.getExchange(), config.getRoutingkey(), email);
+	public void sendMessage(EmailMessage message) {
+		rabbitTemplate.convertAndSend(config.getExchange(), config.getRoutingkey(), message);
 
 	}
 

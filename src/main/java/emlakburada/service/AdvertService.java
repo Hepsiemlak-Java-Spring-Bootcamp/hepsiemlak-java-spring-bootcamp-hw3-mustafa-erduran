@@ -3,6 +3,8 @@ package emlakburada.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +17,7 @@ import emlakburada.dto.response.AdvertResponse;
 import emlakburada.model.Advert;
 import emlakburada.model.RealEstate;
 import emlakburada.model.User;
+import emlakburada.queue.QueueService;
 import emlakburada.repository.DbConnectionRepository;
 import emlakburada.repository.IlanRepository;
 
@@ -35,6 +38,9 @@ public class AdvertService {
 	
 	@Autowired
 	private BannerClient bannerClient;
+	
+	@Autowired
+	private QueueService queueService;
 
 	// @Autowired
 //	public IlanService(IlanRepository ilanRepository) {
@@ -55,6 +61,7 @@ public class AdvertService {
 
 	public AdvertResponse saveAdvert(AdvertRequest request) {
 		Advert savedAdvert = advertRepository.saveAdvert(convertToAdvert(request));
+		queueService.sendMessage(request.getBaslik());
 		bannerClient.saveBanner();
 		return convertToAdvertResponse(savedAdvert);
 	}

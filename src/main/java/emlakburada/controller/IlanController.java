@@ -28,7 +28,7 @@ public class IlanController {
 
 	@PostMapping(value = "/adverts")
 	public ResponseEntity<AdvertResponse> createAdvert(@RequestBody AdvertRequest request) {
-		return new ResponseEntity<>(advertService.createAdvert(request), HttpStatus.CREATED);
+		return new ResponseEntity<>(advertService.saveAdvert(request), HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/adverts/{advertNo}")

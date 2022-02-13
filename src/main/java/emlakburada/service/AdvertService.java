@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import emlakburada.client.BannerClient;
 import emlakburada.dto.AdvertRequest;
 import emlakburada.dto.response.AdvertResponse;
 import emlakburada.model.Advert;
@@ -31,6 +32,9 @@ public class AdvertService {
 	private KullaniciService kullaniciService;
 	
 	private static int advertNo = 38164784;
+	
+	@Autowired
+	private BannerClient bannerClient;
 
 	// @Autowired
 //	public IlanService(IlanRepository ilanRepository) {
@@ -49,9 +53,9 @@ public class AdvertService {
 		return advertList;
 	}
 
-	public AdvertResponse createAdvert(AdvertRequest request) {
+	public AdvertResponse saveAdvert(AdvertRequest request) {
 		Advert savedAdvert = advertRepository.saveAdvert(convertToAdvert(request));
-
+		bannerClient.saveBanner();
 		return convertToAdvertResponse(savedAdvert);
 	}
 
